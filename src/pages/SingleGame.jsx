@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
+import "./SingleGame.css";
 
 export default function SingleGame() {
     const { id } = useParams();
@@ -12,108 +13,117 @@ export default function SingleGame() {
 
     if (loadingGame) {
         return (
-            <div className="container mt-4 text-center">
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Caricamento...</span>
+            <div className="single-game-page d-flex justify-content-center align-items-center">
+                <div className="text-center text-light">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Caricamento...</span>
+                    </div>
+                    <p className="mt-3 mb-0">Caricamento gioco...</p>
                 </div>
-                <p className="mt-3">Caricamento gioco...</p>
             </div>
         );
     }
 
     if (gameError || !currentGame) {
         return (
-            <div className="container mt-4">
-                <div className="alert alert-danger" role="alert">
-                    {gameError || "Gioco non trovato."}
-                </div>
+            <div className="single-game-page">
+                <div className="container py-5">
+                    <div className="alert alert-danger" role="alert">
+                        {gameError || "Gioco non trovato."}
+                    </div>
 
-                <Link className="btn btn-secondary" to="/">
-                    Torna ai Games
-                </Link>
+                    <Link className="btn btn-light" to="/">
+                        Torna ai Games
+                    </Link>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="container mt-4">
-            <div className="card shadow overflow-hidden">
-                <div className="row g-0">
-                    <div className="col-md-4 p-0 d-flex align-items-center">
-                        <img
-                            src={`https://picsum.photos/seed/${currentGame.id}/600/800`}
-                            className="img-fluid rounded-start w-100 game-detail-image"
-                            alt={currentGame.title}
-                        />
+        <main className="single-game-page text-light">
+            <div className="container py-5">
+                <Link
+                    className="btn btn-outline-light btn-sm mb-4"
+                    to="/"
+                >
+                    ← Torna allo Store
+                </Link>
+
+                <div className="row g-5 align-items-start">
+                    <div className="col-lg-7">
+                        <div className="single-game-cover overflow-hidden rounded-4">
+                            <img
+                                src={`https://picsum.photos/seed/${currentGame.id}/1200/800`}
+                                className="w-100 h-100"
+                                alt={currentGame.title}
+                            />
+                        </div>
                     </div>
 
-                    <div className="col-md-8">
-                        <div className="card-body">
-                            <h1 className="card-title">{currentGame.title}</h1>
+                    <div className="col-lg-5">
+                        <div className="py-lg-3">
+                            <h1 className="display-5 fw-bold mb-3">
+                                {currentGame.title}
+                            </h1>
 
-                            <p className="card-text">
-                                <strong>Descrizione:</strong>
-                            </p>
-                            <p>{currentGame.description || "Nessuna descrizione"}</p>
-
-                            <hr />
-
-                            <p>
-                                <strong>Data uscita:</strong>{" "}
-                                <span>{currentGame.releaseDate ?? "Non disponibile"}</span>
+                            <p className="text-secondary fs-5 mb-4">
+                                {currentGame.description || "Nessuna descrizione disponibile."}
                             </p>
 
-                            <p>
-                                <strong>Prezzo:</strong>{" "}
-                                <span>
-                                    {currentGame.price != null
-                                        ? `${Number(currentGame.price).toFixed(2)} €`
-                                        : "Non disponibile"}
-                                </span>
-                            </p>
+                            <div className="d-flex flex-wrap gap-2 mb-4">
+                                {currentGame.genres?.length > 0 &&
+                                    currentGame.genres.map((genre) => (
+                                        <span
+                                            className="badge rounded-pill text-bg-secondary px-3 py-2"
+                                            key={genre.id}
+                                        >
+                                            {genre.name}
+                                        </span>
+                                    ))}
+                            </div>
 
-                            <p>
-                                <strong>Sviluppatore:</strong>{" "}
-                                <span>{currentGame.developer?.name ?? "Nessuno"}</span>
-                            </p>
+                            <h3 className="fw-semibold mb-4">
+                                {currentGame.price != null
+                                    ? `${Number(currentGame.price).toFixed(2)} €`
+                                    : "Prezzo non disponibile"}
+                            </h3>
 
-                            <p>
-                                <strong>Generi:</strong>
-                            </p>
-
-                            {currentGame.genres?.length > 0 ? (
-                                currentGame.genres.map((genre) => (
-                                    <span className="badge bg-primary me-1" key={genre.id}>
-                                        {genre.name}
+                            <div className="single-game-info">
+                                <div className="d-flex justify-content-between gap-3 py-3 border-bottom border-secondary">
+                                    <span className="text-secondary">Sviluppatore</span>
+                                    <span className="text-end">
+                                        {currentGame.developer?.name ?? "Nessuno"}
                                     </span>
-                                ))
-                            ) : (
-                                <span>Nessun genere</span>
-                            )}
+                                </div>
 
-                            <p className="mt-3">
-                                <strong>Piattaforme:</strong>
-                            </p>
-
-                            {currentGame.platforms?.length > 0 ? (
-                                currentGame.platforms.map((platform) => (
-                                    <span className="badge bg-success me-1" key={platform.id}>
-                                        {platform.name}
+                                <div className="d-flex justify-content-between gap-3 py-3 border-bottom border-secondary">
+                                    <span className="text-secondary">Data di uscita</span>
+                                    <span className="text-end">
+                                        {currentGame.releaseDate ?? "Non disponibile"}
                                     </span>
-                                ))
-                            ) : (
-                                <span>Nessuna piattaforma</span>
-                            )}
+                                </div>
 
-                            <hr />
+                                <div className="d-flex justify-content-between gap-3 py-3 border-bottom border-secondary">
+                                    <span className="text-secondary">Piattaforme</span>
 
-                            <Link className="btn btn-secondary" to="/">
-                                Torna ai Games
-                            </Link>
+                                    <div className="text-end">
+                                        {currentGame.platforms?.length > 0
+                                            ? currentGame.platforms
+                                                .map((platform) => platform.name)
+                                                .join(", ")
+                                            : "Nessuna piattaforma"}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button className="btn btn-light w-100 fw-semibold py-3 mt-4">
+                                Acquista ora
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

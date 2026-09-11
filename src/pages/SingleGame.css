@@ -1,0 +1,29 @@
+.single-game-page {
+    min-height: 100vh;
+    background-color: #101014;
+}
+
+.single-game-cover {
+    height: 560px;
+    background-color: #18181c;
+}
+
+.single-game-cover img {
+    object-fit: cover;
+}
+
+.single-game-info {
+    font-size: 0.95rem;
+}
+
+@media (max-width: 991.98px) {
+    .single-game-cover {
+        height: 420px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .single-game-cover {
+        height: 300px;
+    }
+}

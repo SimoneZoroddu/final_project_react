@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 export default function AppHeader() {
     return (
         <header>
-            <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
                         Game Store

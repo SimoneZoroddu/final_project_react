@@ -1,6 +1,6 @@
 export default function AppFooter() {
     return (
-        <footer className="bg-dark text-white py-4 mt-5">
+        <footer className=" text-white py-4 mt-5">
             <div className="container text-center">
                 <p className="mb-2">© 2026 Game Store. Tutti i diritti riservati.</p>
 
