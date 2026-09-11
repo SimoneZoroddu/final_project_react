@@ -34,7 +34,7 @@ export default function AppHeader() {
                                 className="btn btn-outline-light"
                                 href="http://localhost:8080/login"
                             >
-                                Login Admin
+                                Login
                             </a>
                         </div>
                     </div>

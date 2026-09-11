@@ -117,8 +117,8 @@ export default function SingleGame() {
                                 </div>
                             </div>
 
-                            <button className="btn btn-light w-100 fw-semibold py-3 mt-4">
-                                Acquista ora
+                            <button className="btn btn-light w-100 fw-semibold py-3 mt-4" disabled>
+                                Acquistabile Prossimante
                             </button>
                         </div>
                     </div>
